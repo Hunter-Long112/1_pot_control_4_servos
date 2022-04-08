@@ -1,6 +1,7 @@
 #include <Servo.h>
    
-Servo myServo;
+Servo servo0;
+Servo servo1;
 
 /* Variables:
  * potPin = Analog input pin used to read from potentiometer
@@ -9,11 +10,15 @@ Servo myServo;
  */
 int potPin = A0;
 int potValue;
-int servoSetting;
+int servoPin0 = 3;
+int servoPin1 = 5;
+int servoSetting0;
+int servoSetting1;
 
 void setup(){
   pinMode(potPin, INPUT);
-  myServo.attach(3);
+  servo0.attach(servoPin0);
+  servo1.attach(servoPin1);
 
   /* debug
    * Serial.begin(9600);
@@ -27,14 +32,18 @@ void loop(){
    * Serial.println(potValue);
    */
   
-  servoSetting = map(potValue, 0, 1023, 0, 180);
+  servoSetting0 = map(potValue, 0, 1023, 0, 180);
   /* debug
    * Serial.println("Servo Setting: ");
    * Serial.println(servoSetting);
    */
+
+  int temp;
+  temp = 180 - servoSetting0;
+  servoSetting1 = 0 + temp;
   
-  myServo.write(servoSetting);
-  
+  servo0.write(servoSetting0);
+  servo1.write(servoSetting1);
   /* adding delay is very helpful for debug
    * delay(25);
    */ 
